@@ -1,11 +1,22 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
 .header {
     font-size: 48px;
     text-align: center;
+    background-color: #fffafa;
 }
+
+.instructionbox {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: center;
+}
+
 .container {
     display: flex;
-    font-family: Arial, Helvetica, sans-serif;
-    height: 90vh;
+    height: 40vw;
 }
 
 .leftbox {
@@ -13,21 +24,28 @@
     flex: 1;
     align-items: center;
     justify-content: center;
+    background-color: #fafffa;
 }
 
 .centrebox {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
+    width: 200px;
+    background-color: #fafaff;
+    text-align: center;
+    padding: 10px;
 }
 
 .rightbox {
     display: flex;
     flex-direction: column;
     flex: 1;
+    background-color: #fafffa;
 }
 
-.aaimage {
+.imagebox{
     display: flex;
     flex: 1;
     justify-content: center;
@@ -52,15 +70,20 @@
     flex: 1;
     text-align: center;
     text-transform: capitalize;
-    size: 24px;
+    font-size: 36px;
 }
 
-.timer {
+.timer, .score {
     font-size: 64px;
     font-weight: bold;
     text-align: center;
 }
 
+.instructions {
+    font-weight: 700;
+}
+
 img {
     width: 200px;
+    border: 1px solid #888888;
 }

@@ -11,6 +11,25 @@ function handleChoiceClick (e) {
     processChoice(choice);
 };
 
+function handleStartButton () {
+    timer = startTimer();
+    showOptions();
+    activateChoosing();
+    deactivateStartButton();
+};
+
+function activateStartButton() {
+    const startButton = document.querySelector('.startbutton');
+    startButton.removeAttribute("disabled");
+};
+
+function deactivateStartButton() {
+    const startButton = document.querySelector('.startbutton');
+    startButton.setAttribute("disabled", true);
+};
+
+
+
 function activateChoosing () {
     let i = 0;
     const optionboxes = document.querySelectorAll('.optionbox');
@@ -55,13 +74,17 @@ function setTimer(value) {
     document.querySelector('.timer').textContent = time;
 };
 
+function setScore(value) {
+    document.querySelector('.score').textContent = value;
+}
+
 function processChoice(choice) {
     stopTimer(timer);
     deactivateChoosing();
     const optionboxes = document.querySelectorAll('.optionbox');
     optionboxes.forEach( (optionbox) => {
         if (optionbox.id === choice) {
-            if (choice === correctChoice) {
+            if (choice == correctChoice) {
                 optionbox.style.background = '#99ff99';
             } else {
                 optionbox.style.background = '#ff9999';
@@ -75,10 +98,25 @@ function processChoice(choice) {
             optionbox.style.background = '#99ff99';
         }
     });
+    if (choice == correctChoice) {
+        score += time;
+    }
+    setScore(score);
+    round += 1
+    if (round % gamesPerRound === 0) {
+        gameType += 1;
+        gameTime = 5;
+    } else {
+        gameTime = 5;
+    }
+    if (gameType > 7) {
+        alert(`GAME OVER!\nYou scored ${score}`)
+    } else {
     defer(2);
+    };
 };
 
-function resetOptionBoxes () {
+function resetOptionBoxBackgrounds () {
     const optionboxes = document.querySelectorAll('.optionbox');
     optionboxes.forEach( (optionbox) => {
         optionbox.style.background = 'white';
@@ -86,11 +124,16 @@ function resetOptionBoxes () {
 };
 
 function fillOptionBoxes (aas) {
-    const rightbox = document.querySelector('.rightbox');
-    textboxes = rightbox.querySelectorAll('.textbox');
+    optionboxes = document.querySelectorAll('.optionbox');
     let i = 0;
-    textboxes.forEach((textbox) => {
-        textbox.textContent = aas[i];
+    optionboxes.forEach((optionbox) => {
+        const text = aas[i];
+        if (text.search('.png') > -1) {
+            element = imageElement(text);
+        } else {
+            element = textElement(text);
+        }
+        optionbox.appendChild(element);
         i += 1;
     });
 };
@@ -106,35 +149,177 @@ function defer (seconds) {
     }, 1000);
 };
 
-function setAA (a) {
-    let path = `AAFlashCards/${a}.png`
-    leftBox = document.querySelector('.leftbox');
-    img = leftBox.querySelector('img');
-    img.src = path;
-};
-
-
 function newGame () {
-    setTimer(gameTime);
+    
     let r = Math.floor(Math.random() * aaSets.length);
     let aaSet = aaSets[r];
     correctChoice = Math.floor(Math.random() * 4);
-    resetOptionBoxes();
-    let aaNames = []
+    let correctValue = aaSet[correctChoice];
+    let query = '';
+    let options = [];
     if (gameType === 0) {
+        query = `AAFlashCards/${longName(correctValue)}.png`;
         for (let i=0; i < aaSet.length; i++) {
-            aaNames[aaNames.length] = aaSet[i];
+            options[options.length] = longName(aaSet[i]);
         };
     } else if (gameType === 1) {
+        query = `AAFlashCards/${longName(correctValue)}.png`;
+        options = aaSet;
+    } else if (gameType === 2) {
+        query = longName(correctValue);
         for (let i=0; i < aaSet.length; i++) {
-            aaNames[aaNames.length] = longName(aaSet[i]);
+            options[options.length] = `AAFlashCards/${longName(aaSet[i])}.png`;
         };
+    } else if (gameType === 3) {
+        query = aaSet[correctChoice];
+        for (let i=0; i < aaSet.length; i++) {
+            options[options.length] = `AAFlashCards/${longName(aaSet[i])}.png`;
+        };
+    } else if (gameType === 4) {
+        query = `AAFlashCards/${correctValue}.png`;
+        for (let i=0; i < aaSet.length; i++) {
+            options[options.length] = longName(aaSet[i]);
+        };
+    } else if (gameType === 5) {
+        query = `AAFlashCards/${correctValue}.png`;
+        options = aaSet;
+    } else if (gameType === 6) {
+        query = longName(correctValue);
+        for (let i=0; i < aaSet.length; i++) {
+            options[options.length] = `AAFlashCards/${aaSet[i]}.png`;
+        };
+    } else if (gameType === 7) {
+        query = aaSet[correctChoice];
+        for (let i=0; i < aaSet.length; i++) {
+            options[options.length] = `AAFlashCards/${aaSet[i]}.png`;
+        };
+    }
+    if (query.search('.png') > -1) {
+        setupImageQuery(query);
+    } else {
+        setupTextQuery(query);
+    }
+
+    if (options[0].search('.png') > -1) {
+        setupImageOptions(options);
+    } else {
+        setupTextOptions(options);
+    }
+
+    if (round % gamesPerRound === 0) {
+        text = `Round ${gameType + 1}:\n`;
+        switch (gameType) {
+            case 0:
+                text += 'Pick the 3-letter code that matches the 2D structure';
+                break;
+            case 1:
+                text += 'Pick the 1-letter code that matches the 2D structure';
+                break;
+            case 2:
+                text += 'Pick the 2D structure that matches the 3-letter code';
+                break;
+            case 3:
+                text += 'Pick the 2D structure that matches the 1-letter code';
+                break;
+            case 4:
+                text += 'Pick the 3-letter code that matches the 3D structure';
+                break;
+            case 5:
+                text += 'Pick the 1-letter code that matches the 3D structure';
+                break;
+            case 6:
+                text += 'Pick the 3D structure that matches the 3-letter code';
+                break;
+            case 7:
+                text += 'Pick the 3D structure that matches the 1-letter code';
+                break;
+        }
+        instructions = document.querySelector(".instructions");
+        instructions.textContent = text;
+        setTimer(gameTime);
+        resetOptionBoxBackgrounds();
+        hideOptions();
+        activateStartButton();
+        //alert(text);
+    } else {
+
+        setTimer(gameTime);
+        timer = startTimer();
+        resetOptionBoxBackgrounds();
+        activateChoosing();
     };
-    
-    fillOptionBoxes(aaNames);
-    setAA(aaNames[correctChoice]);
-    timer = startTimer();
-    activateChoosing();
+};
+
+function removeChildren (node) {
+    while (node.firstChild) {
+        node.removeChild(node.lastChild);
+    };
+};
+
+function createImageBox (path) {
+    const img = document.createElement('img');
+    img.setAttribute('src', path);
+    const div = document.createElement('div');
+    div.classList.add('imagebox');
+    div.appendChild(img);
+    return div;
+};
+
+function createTextBox (text) {
+    const textbox = document.createElement('div');
+    textbox.classList.add('textbox');
+    textbox.textContent = text;
+    return textbox;
+};
+
+function setupImageQuery (path) {
+    const leftbox = document.querySelector('.leftbox');
+    removeChildren(leftbox);
+    imagebox = createImageBox(path);
+    leftbox.appendChild(imagebox);
+};
+
+function setupTextQuery (text) {
+    const leftbox = document.querySelector('.leftbox');
+    removeChildren(leftbox);
+    textbox = createTextBox(text);
+    leftbox.appendChild(textbox);
+};
+
+function setupTextOptions (texts) {
+    const optionboxes = document.querySelectorAll('.optionbox');
+    let i = 0;
+    optionboxes.forEach((optionbox) => {
+        removeChildren(optionbox);
+        textbox = createTextBox(texts[i]);
+        optionbox.appendChild(textbox);
+        i++;
+    });
+};
+
+function setupImageOptions (paths) {
+    const optionboxes = document.querySelectorAll('.optionbox');
+    let i = 0;
+    optionboxes.forEach((optionbox) => {
+        removeChildren(optionbox);
+        imagebox = createImageBox(paths[i]);
+        optionbox.appendChild(imagebox);
+        i++;
+    });
+};
+
+function hideOptions () {
+    const optionboxes = document.querySelectorAll('.optionbox');
+    optionboxes.forEach((optionbox) => {
+        optionbox.firstChild.style.visibility = 'hidden';
+    });
+};
+
+function showOptions () {
+    const optionboxes = document.querySelectorAll('.optionbox');
+    optionboxes.forEach((optionbox) => {
+        optionbox.firstChild.style.visibility = 'visible';
+    });
 };
 
 function longName (aa) {
@@ -143,7 +328,6 @@ function longName (aa) {
         'met', 'asn', 'pro', 'gln', 'arg', 'ser', 'thr', 'val', 'trp', 'tyr',
     ]
     const shortNames = ['a','c','d','e','f','g','h','i','k','l','m','n','p','q','r','s','t','v','w','y'];
-    console.log(aa);
     return longNames[shortNames.indexOf(aa)];
 };
 
@@ -161,9 +345,17 @@ const aaSets = [
     ['p', 'f', 'g', 'a'],
     ['s', 't', 'c', 'v'],
     ['w', 'r', 'y', 'q'],
-]
+];
+const startButton = document.querySelector('.startbutton');
+startButton.addEventListener('click', handleStartButton);
+
 let timer = null;
+let time = 0;
+let score = 0;
+let gameTime = 5;
 let correctChoice = 2;
-const gameTime = 5;
-const gameType = 1;
+let gameType = 0;
+let round = 0;
+const gamesPerRound = 3;
+setScore(score)
 newGame();
