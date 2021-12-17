@@ -4,7 +4,7 @@ body {
     flex-direction: column;
 }
 .header {
-    font-size: 48px;
+    font-size: 36px;
     text-align: center;
     background-color: #fffafa;
 }
@@ -88,6 +88,6 @@ body {
 }
 
 img {
-    width: 200px;
+    width: 40vw;
     border: 1px solid #888888;
 }
