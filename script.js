@@ -11,25 +11,6 @@ function handleChoiceClick (e) {
     processChoice(choice);
 };
 
-function handleStartButton () {
-    timer = startTimer();
-    showOptions();
-    activateChoosing();
-    deactivateStartButton();
-};
-
-function activateStartButton() {
-    const startButton = document.querySelector('.startbutton');
-    startButton.removeAttribute("disabled");
-};
-
-function deactivateStartButton() {
-    const startButton = document.querySelector('.startbutton');
-    startButton.setAttribute("disabled", true);
-};
-
-
-
 function activateChoosing () {
     let i = 0;
     const optionboxes = document.querySelectorAll('.optionbox');
@@ -234,15 +215,12 @@ function newGame () {
                 text += 'Pick the 3D structure that matches the 1-letter code';
                 break;
         }
-        instructions = document.querySelector(".instructions");
-        instructions.textContent = text;
+        alert(text);
         setTimer(gameTime);
+        timer = startTimer();
         resetOptionBoxBackgrounds();
-        hideOptions();
-        activateStartButton();
-        //alert(text);
+        activateChoosing();
     } else {
-
         setTimer(gameTime);
         timer = startTimer();
         resetOptionBoxBackgrounds();
@@ -346,8 +324,6 @@ const aaSets = [
     ['s', 't', 'c', 'v'],
     ['w', 'r', 'y', 'q'],
 ];
-const startButton = document.querySelector('.startbutton');
-startButton.addEventListener('click', handleStartButton);
 
 let timer = null;
 let time = 0;
