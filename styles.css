@@ -9,13 +9,6 @@ body {
     background-color: #fffafa;
 }
 
-.instructionbox {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    align-items: center;
-}
-
 .leftbox {
     display: flex;
     flex: 1;

@@ -91,7 +91,14 @@ function processChoice(choice) {
         gameTime = 5;
     }
     if (gameType > 7) {
-        alert(`GAME OVER!\nYou scored ${score}`)
+        let hiScore = getCookie("hiScore");
+        hiScore = (hiScore === '') ? 0 : Number(hiScore);
+        if (hiScore > score) {
+            alert(`GAME OVER!\nYou scored ${score}\nBest score: ${hiScore}`)
+        } else {
+            setCookie("hiScore", score, 365);
+            alert(`GAME OVER\nYou scored ${score}\nNEW PERSONAL BEST!`)
+        }
     } else {
     defer(2);
     };
@@ -309,6 +316,29 @@ function longName (aa) {
     return longNames[shortNames.indexOf(aa)];
 };
 
+function setCookie(cname, cvalue, exdays) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    let expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
+  
+  function getCookie(cname) {
+    let name = cname + "=";
+    let ca = document.cookie.split(';');
+    for(let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+  
+  
 const aaSets = [
     ['a', 'v', 'c', 'g'],
     ['c', 's', 't', 'm'],
