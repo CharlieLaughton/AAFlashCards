@@ -9,18 +9,19 @@ body {
     background-color: #fffafa;
 }
 
-.leftbox {
-    display: flex;
-    flex: 1;
+.querybox {
     align-items: center;
     justify-content: center;
+    border: 2px solid black;
     background-color: #fafffa;
+    width: 45vw;
+    height: 40vw;
 }
 
-.centrebox {
+.countbox {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     width: 200px;
     background-color: #fafaff;
@@ -28,7 +29,7 @@ body {
     padding: 10px;
 }
 
-.rightbox {
+.bottombox {
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -57,7 +58,7 @@ body {
     justify-content: center;
 }
 
-.bottombox {
+.topbox {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -82,5 +83,4 @@ body {
 
 img {
     width: 40vw;
-    border: 1px solid #888888;
 }

@@ -210,10 +210,10 @@ function newGame () {
                 text += 'Pick the 2D structure that matches the 1-letter code';
                 break;
             case 4:
-                text += 'Pick the 3-letter code that matches the 3D structure';
+                text += 'Pick the 3-letter code that matches the 3D structure (highlighted in grey)';
                 break;
             case 5:
-                text += 'Pick the 1-letter code that matches the 3D structure';
+                text += 'Pick the 1-letter code that matches the 3D structure (highlighted in grey)';
                 break;
             case 6:
                 text += 'Pick the 3D structure that matches the 3-letter code';
@@ -258,17 +258,17 @@ function createTextBox (text) {
 };
 
 function setupImageQuery (path) {
-    const leftbox = document.querySelector('.leftbox');
-    removeChildren(leftbox);
+    const querybox = document.querySelector('.querybox');
+    removeChildren(querybox);
     imagebox = createImageBox(path);
-    leftbox.appendChild(imagebox);
+    querybox.appendChild(imagebox);
 };
 
 function setupTextQuery (text) {
-    const leftbox = document.querySelector('.leftbox');
-    removeChildren(leftbox);
+    const querybox = document.querySelector('.querybox');
+    removeChildren(querybox);
     textbox = createTextBox(text);
-    leftbox.appendChild(textbox);
+    querybox.appendChild(textbox);
 };
 
 function setupTextOptions (texts) {
