@@ -1,21 +1,31 @@
 body {
-    font-family: Arial, Helvetica, sans-serif;
     display: flex;
     flex-direction: column;
-}
-.header {
-    font-size: 24px;
-    text-align: center;
-    background-color: #fffafa;
+    justify-content: space-between;
+    height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-.querybox {
+.header {
+    text-align: center;
+    font-size: 24px;
+}
+.queryarea {
     display: flex;
-    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.optionarea {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+.row {
+    display: flex;
     justify-content: center;
-    border: 2px solid black;
-    background-color: #fafffa;
-    height: 40vw;
 }
 
 .countbox {
@@ -23,62 +33,27 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 200px;
-    background-color: #fafaff;
-    text-align: center;
-    padding: 10px;
+    width: 20vw;
 }
 
-.bottombox {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    background-color: #fafffa;
+.countboxtitle {
+    font-size: 24px;
 }
 
-.imagebox{
+.countboxvalue {
+    font-size: 72px;
+}
+
+.querybox, .optionbox {
     display: flex;
-    flex: 1;
+    width: 45vw;
+    height: 45vw;
     justify-content: center;
-}
-
-.row {
-    display: flex;
-    flex: 1;
-    align-items: space-around;
-}
-
-.optionbox {
-    display: flex;
-    height: 40vw;
-    flex: 1;
-    margin: 10px;
-    border: 2px solid black;
     align-items: center;
-    justify-content: center;
-}
-
-.topbox {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.textbox {
-    flex: 1;
-    text-align: center;
+    font-size: 48px;
     text-transform: capitalize;
-    font-size: 36px;
-}
-
-.timer, .score {
-    font-size: 64px;
-    font-weight: bold;
-    text-align: center;
-}
-
-.instructions {
-    font-weight: 700;
+    border: black 1px solid;
+    margin: 2px;
 }
 
 img {

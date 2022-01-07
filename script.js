@@ -34,7 +34,7 @@ function deactivateChoosing () {
 
 function decrementer () {
     time -= 1;
-    document.querySelector('.timer').textContent = time;
+    document.querySelector('#timer').textContent = time;
     if (time ===  0) {
         stopTimer(timer);
         processChoice(-1);
@@ -52,11 +52,11 @@ function stopTimer(timer) {
 
 function setTimer(value) {
     time = value;
-    document.querySelector('.timer').textContent = time;
+    document.querySelector('#timer').textContent = time;
 };
 
 function setScore(value) {
-    document.querySelector('.score').textContent = value;
+    document.querySelector('#score').textContent = value;
 }
 
 function processChoice(choice) {
@@ -244,15 +244,12 @@ function removeChildren (node) {
 function createImageBox (path) {
     const img = document.createElement('img');
     img.setAttribute('src', path);
-    const div = document.createElement('div');
-    div.classList.add('imagebox');
-    div.appendChild(img);
-    return div;
+    return img;
 };
 
 function createTextBox (text) {
     const textbox = document.createElement('div');
-    textbox.classList.add('textbox');
+    textbox.classList.add('textcontent');
     textbox.textContent = text;
     return textbox;
 };
