@@ -2,7 +2,6 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 90vh;
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -46,8 +45,8 @@ body {
 
 .querybox, .optionbox {
     display: flex;
-    width: 45vw;
-    height: 45vw;
+    width: 40vw;
+    height: 40vw;
     justify-content: center;
     align-items: center;
     font-size: 48px;
