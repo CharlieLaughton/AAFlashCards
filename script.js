@@ -137,6 +137,23 @@ function defer (seconds) {
     }, 1000);
 };
 
+function showSplash (seconds) {
+    let s = seconds;
+    const splash = document.querySelector('.splashscreen');
+    const bigDiv = document.querySelector('.bigdiv');
+    splash.style.display = "block";
+    bigDiv.style.display = "none";
+    
+    let x = setInterval( () => {
+        s -= 1;
+        if (s <= 0) {
+            clearInterval(x);
+            splash.style.display = "none";
+            bigDiv.style.display = "block";
+        };
+    }, 1000);
+};
+
 function newGame () {
     
     if (round % gamesPerRound === 0) {
@@ -376,4 +393,5 @@ let round = 0;
 const gamesPerRound = 3;
 let choiceHistory = [];
 setScore(score)
-newGame();
+showSplash(5);
+defer(5);
