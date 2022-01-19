@@ -139,12 +139,24 @@ function defer (seconds) {
 
 function newGame () {
     
-    let r = Math.floor(Math.random() * aaSets.length);
-    let aaSet = aaSets[r];
-    correctChoice = Math.floor(Math.random() * 4);
-    let correctValue = aaSet[correctChoice];
+    if (round % gamesPerRound === 0) {
+        choiceHistory = [];
+    };
+    correctChoice = 0;
+    correctValue = 0;
+    let aaSet = [];
+    do {
+        let r = Math.floor(Math.random() * aaSets.length);
+        aaSet = aaSets[r];
+        correctChoice = Math.floor(Math.random() * 4);
+        correctValue = aaSet[correctChoice];
+    } while (choiceHistory.includes(correctValue));
+    choiceHistory.push(correctValue);
+    console.log(choiceHistory, correctChoice);
+
     let query = '';
     let options = [];
+    let gameTime = 5;
     if (gameType === 0) {
         query = `AAFlashCards/${longName(correctValue)}.png`;
         for (let i=0; i < aaSet.length; i++) {
@@ -172,12 +184,14 @@ function newGame () {
         query = `AAFlashCards/${correctValue}.png`;
         options = aaSet;
     } else if (gameType === 6) {
+        gameTime = 8;
         query = longName(correctValue);
         for (let i=0; i < aaSet.length; i++) {
             options[options.length] = `AAFlashCards/${aaSet[i]}.png`;
         };
     } else if (gameType === 7) {
         query = aaSet[correctChoice];
+        gameTime = 8;
         for (let i=0; i < aaSet.length; i++) {
             options[options.length] = `AAFlashCards/${aaSet[i]}.png`;
         };
@@ -360,5 +374,6 @@ let correctChoice = 2;
 let gameType = 0;
 let round = 0;
 const gamesPerRound = 3;
+let choiceHistory = [];
 setScore(score)
 newGame();
