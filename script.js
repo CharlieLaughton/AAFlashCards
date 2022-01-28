@@ -86,9 +86,9 @@ function processChoice(choice) {
     round += 1
     if (round % gamesPerRound === 0) {
         gameType += 1;
-        gameTime = 5;
+        gameTime = 8;
     } else {
-        gameTime = 5;
+        gameTime = 8;
     }
     if (gameType > 7) {
         let hiScore = getCookie("hiScore");
@@ -173,7 +173,7 @@ function newGame () {
 
     let query = '';
     let options = [];
-    let gameTime = 5;
+    let gameTime = 8;
     if (gameType === 0) {
         query = `AAFlashCards/${longName(correctValue)}.png`;
         for (let i=0; i < aaSet.length; i++) {
@@ -201,14 +201,14 @@ function newGame () {
         query = `AAFlashCards/${correctValue}.png`;
         options = aaSet;
     } else if (gameType === 6) {
-        gameTime = 8;
+        gameTime = 12;
         query = longName(correctValue);
         for (let i=0; i < aaSet.length; i++) {
             options[options.length] = `AAFlashCards/${aaSet[i]}.png`;
         };
     } else if (gameType === 7) {
         query = aaSet[correctChoice];
-        gameTime = 8;
+        gameTime = 12;
         for (let i=0; i < aaSet.length; i++) {
             options[options.length] = `AAFlashCards/${aaSet[i]}.png`;
         };
@@ -386,7 +386,7 @@ const aaSets = [
 let timer = null;
 let time = 0;
 let score = 0;
-let gameTime = 5;
+let gameTime = 8;
 let correctChoice = 2;
 let gameType = 0;
 let round = 0;
